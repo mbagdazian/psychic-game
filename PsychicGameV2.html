@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Psychic game!</title>
+
+</head>
+
+<body>
+
+
+<h1>Guess the Computer's letter!</h1>
+
+<h2>Choose any letter to start</h2>
+
+<ul>
+	<li>Wins:<span id ="winCount"></span></li>
+	<li>Losses:<span id="lossCount"><span></span></li>
+	<li>Guesses left:<span id="remainingGuesses"></span></li>
+	<li>Your guesses so far:<span id="lettersGuessed"></span></li>
+</ul>
+
+
+<script type = "text/javascript">
+
+
+var outcomes =['a', 'b','c', 'd','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+var guessesLeft = 9;
+var wins = 0;
+var losses = 0;
+var winCount = document.getElementById("winCount");
+var lossCount = document.getElementById("lossCount");
+var remainingGueses = document.getElementById("remainingGuesses");
+var lettersGuessed = document.getElementById("lettersGuessed");
+
+//variables     
+winCount.textContent = wins;
+lossCount.textContent = losses;
+remainingGuesses.textContent = guessesLeft;
+
+// generate an initial guess value when the page loads
+var index = Math.floor(Math.random() * outcomes.length);
+var computerChoice = outcomes[index];
+
+document.onkeyup = function(event) {
+
+	var keyHit = event.key;
+	var userChoice = keyHit;
+	console.log("computer choice is" + computerChoice)
+//game logic
+if((userChoice >= outcomes[0]) && (userChoice <= outcomes[25]) )
+{
+
+			// update the user history
+		usersHistory = lettersGuessed.textContent;
+		lettersGuessed.textContent = usersHistory + userChoice + " , ";
+
+				if (userChoice == computerChoice){
+				wins = (wins +1);
+				guessesLeft = (guessesLeft -1);
+				} else {
+				losses = (losses +1);
+				guessesLeft = (guessesLeft -1);}
+					
+		
+		index = Math.floor(Math.random() * outcomes.length);
+		computerChoice = outcomes[index];
+		
+
+	if (guessesLeft == 0){
+		alert("No more guesses left!");
+		wins = 0;
+		losses = 0;
+		guessesLeft = 9;
+		lettersGuessed.textContent = '';
+	}
+		winCount.textContent = wins;
+		lossCount.textContent = losses;
+		remainingGuesses.textContent = guessesLeft;
+
+} else {alert("Hit a key, a to z")}
+
+
+}
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+	
+</body>
+</html>
